@@ -1,5 +1,43 @@
-rounds = ""
-input("How many rounds? ")
+# Functions
+
+def int_check(question, low=None, high=None, exit_code=None):
+    if low is None and high is None:
+        error = "Please enter an integer"
+        situation = "any integer"
+    elif low is not None and high is not None:
+        error = f"Please enter an integer between {low} and {high}"
+        situation = "both"
+    else:
+        error = f"Please enter an integer more than {low}"
+        situation = "low only"
+
+    while True:
+        response = input(question).lower()
+        if response == exit_code:
+            return response
+
+        try:
+            response = int(response)
+
+            # check that integer is valid (ie: not too low / too high etc...)
+            if situation == "any integer":
+                return response
+
+            elif situation == "both":
+                if low <= response <= high:
+                    return response
+
+            elif situation == "low only":
+                if response > low:
+                    return response
+
+            print(error)
+
+        except ValueError:
+            print(error)
+
+
+rounds = int_check("How many rounds? ", 0)
 response = rounds
 
 rounds_played = 0
@@ -10,9 +48,10 @@ while play_again == "":
     rounds_played += 1
 
     # Print round number
+
     print(f"*** Round # {rounds_played} ***")
     rounds -= 1
-    print(f"Rounds: {rounds}")
+    print(f"Rounds: {rounds + 1}")
     print()
 
     # prevent balance from going into negatives
