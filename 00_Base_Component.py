@@ -1,3 +1,6 @@
+import random
+
+
 # Functions...
 
 # Checks an integer is valid (more than low, less than high)
@@ -31,7 +34,7 @@ def int_check(question, low=None, high=None, exit_code=None):
                     return response
 
             elif situation == "low only":
-                if response >= low:
+                if response > low:
                     return response
 
             print(error)
@@ -41,6 +44,19 @@ def int_check(question, low=None, high=None, exit_code=None):
 
 
 # Main Routine...
+
+# Welcome statements
+print()
+print("Welcome to Higher Lower Game by Jack Pringle!")
+print()
+
+# Ask user if they want to see instructions
+
+
+lowest = 0
+highest = 100
+
+max_guesses = 6
 
 rounds_played = 0
 rounds_won = 0
@@ -58,7 +74,7 @@ if rounds == "":
 
 # Rounds loop...
 end_game = "no"
-while end_game == "no":
+while end_game == "no" and rounds_played < rounds:
 
     if mode == "infinite":
         heading = f"Round {rounds_played + 1} (infinite mode)"
@@ -70,19 +86,23 @@ while end_game == "no":
 
     rounds_played += 1
 
-    SECRET = 7
-    GUESSES_ALLOWED = 5
-    guesses_left = GUESSES_ALLOWED
+    secret = random.randint(lowest, highest)
+    guesses_allowed = max_guesses
+    guesses_left = guesses_allowed
     already_guessed = []
 
     # Start  guessing!
 
     guess = ""
 
-    while guess != SECRET and guesses_left >= 1:
+    while guess != secret and guesses_left >= 1:
 
-        guess = int_check("Guess: ")
+        guess = int_check("Guess: ", lowest, highest, "xxx")
         print()
+
+        if guess == "xxx":
+            end_game = "yes"
+            break
 
         # checks that guess is not duplicate
         if guess in already_guessed:
@@ -95,26 +115,26 @@ while end_game == "no":
 
         if guesses_left >= 1:
 
-            if guess < SECRET:
+            if guess < secret:
                 print(f"TOO LOW, try a higher number.")
                 print()
                 print(f"Guesses left: {guesses_left}")
                 print()
 
-            elif guess > SECRET:
+            elif guess > secret:
                 print(f"TOO HIGH, try a lower number.")
                 print()
                 print(f"Guesses left: {guesses_left}")
                 print()
 
         else:
-            if guess < SECRET:
+            if guess < secret:
                 print("Too Low!")
-            elif guess > SECRET:
+            elif guess > secret:
                 print("Too High!")
 
-            if guess == SECRET:
-                if guesses_left == GUESSES_ALLOWED:
+            if guess == secret:
+                if guesses_left == guesses_allowed:
                     print("Amazing! You got it! ")
                 else:
                     print("Well done, you got it!")
@@ -124,5 +144,5 @@ while end_game == "no":
         print("----------------------------")
         print("NO MORE GUESSES!")
         print("----------------------------")
+        print(f"The secret number was {secret}!")
         break
-
