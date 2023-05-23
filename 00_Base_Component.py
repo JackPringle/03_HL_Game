@@ -47,11 +47,25 @@ def int_check(question, low=None, high=None, exit_code=None):
 
 # Welcome statements
 print()
-print("Welcome to Higher Lower Game by Jack Pringle!")
+print("---------------------------------------------------")
+print("WELCOME TO HIGHER LOWER GAME BY JACK PRINGLE!")
+print("---------------------------------------------------")
 print()
 
-# Ask user if they want to see instructions
+# Display instructions
 
+print("Games Instructions... ")
+print()
+print("Enter how many rounds you would like to play.")
+print("If you would like, you can press <enter> for continuous mode.")
+print("For each round, you will have to guess for a number between 0 and 100 inclusive.")
+print("Each round you get 6 attempts to guess the secret number.")
+print("If at any point you wish to quit, type <xxx>")
+print("Good luck guessing and HAVE FUN!")
+print()
+print("----------------------------")
+print("START OF GAME")
+print("----------------------------")
 
 lowest = 0
 highest = 100
@@ -95,6 +109,9 @@ while end_game == "no" and rounds_played < rounds:
 
     guess = ""
 
+    # Testing purposes
+    print(f"Testing: The number is {secret}")
+
     while guess != secret and guesses_left >= 1:
 
         guess = int_check("Guess: ", lowest, highest, "xxx")
@@ -133,16 +150,26 @@ while end_game == "no" and rounds_played < rounds:
             elif guess > secret:
                 print("Too High!")
 
-            if guess == secret:
-                if guesses_left == guesses_allowed:
-                    print("Amazing! You got it! ")
-                else:
-                    print("Well done, you got it!")
+        if guess == secret and rounds != 0:
+            print("Well done, you got it!")
+            print(f"The secret number was {secret}!")
+            print("----------------------------")
+            print(f"End of round {rounds_played}!")
+            print("----------------------------")
 
-    if guesses_left == 0:
+        if guess == secret and rounds == 0:
+            print("---------------------------------------------")
+            print("THANKS FOR PLAYING HIGHER LOWER GAME!")
+            print("---------------------------------------------")
+
+    if guesses_left == 0 and rounds_played == rounds:
         print()
         print("----------------------------")
         print("NO MORE GUESSES!")
         print("----------------------------")
         print(f"The secret number was {secret}!")
+        print("---------------------------------------------")
+        print("THANKS FOR PLAYING HIGHER LOWER GAME!")
+        print("---------------------------------------------")
+
         break
