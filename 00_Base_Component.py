@@ -80,7 +80,7 @@ high_number = 100
 
 mode = "regular"
 
-rounds = int_check("How many rounds?: ", 1, exit_code="")
+rounds = int_check("How many rounds?: ", 0, exit_code="")
 
 if rounds == "":
     mode = "infinite"
@@ -108,9 +108,6 @@ while end_game == "no" and rounds_played < rounds:
     # Start  guessing!
 
     guess = ""
-
-    # Testing purposes
-    print(f"Testing: The number is {secret}")
 
     while guess != secret and guesses_left >= 1:
 
@@ -157,19 +154,15 @@ while end_game == "no" and rounds_played < rounds:
             print(f"End of round {rounds_played}!")
             print("----------------------------")
 
-        if guess == secret and rounds == 0:
-            print("---------------------------------------------")
-            print("THANKS FOR PLAYING HIGHER LOWER GAME!")
-            print("---------------------------------------------")
-
     if guesses_left == 0 and rounds_played == rounds:
-        print()
         print("----------------------------")
         print("NO MORE GUESSES!")
         print("----------------------------")
         print(f"The secret number was {secret}!")
-        print("---------------------------------------------")
-        print("THANKS FOR PLAYING HIGHER LOWER GAME!")
-        print("---------------------------------------------")
 
         break
+
+# end game thanks
+print("---------------------------------------------")
+print("THANKS FOR PLAYING HIGHER LOWER GAME!")
+print("---------------------------------------------")
